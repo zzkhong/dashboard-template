@@ -15,7 +15,7 @@ import { Textarea } from "../ui/textarea";
 
 import { useTaskStore } from "@/lib/store";
 
-export default function NewTaskDialog() {
+export default function NewFileDialog() {
   const addTask = useTaskStore((state) => state.addTask);
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
@@ -33,18 +33,16 @@ export default function NewTaskDialog() {
     <Dialog>
       <DialogTrigger asChild>
         <Button variant="secondary" size="sm">
-          ＋ Add New Todo
+          ＋ Upload New File
         </Button>
       </DialogTrigger>
       <DialogContent className="sm:max-w-[425px]">
         <DialogHeader>
-          <DialogTitle>Add New Todo</DialogTitle>
-          <DialogDescription>
-            What do you want to get done today?
-          </DialogDescription>
+          <DialogTitle>Upload New File</DialogTitle>
+          <DialogDescription>Select file to upload</DialogDescription>
         </DialogHeader>
         <form
-          id="todo-form"
+          id="category-form"
           className="grid gap-4 py-4"
           onSubmit={handleSubmit}
         >
@@ -52,7 +50,7 @@ export default function NewTaskDialog() {
             <Input
               id="title"
               name="title"
-              placeholder="Todo title..."
+              placeholder="File title..."
               className="col-span-4"
             />
           </div>
@@ -67,8 +65,8 @@ export default function NewTaskDialog() {
         </form>
         <DialogFooter>
           <DialogTrigger asChild>
-            <Button type="submit" size="sm" form="todo-form">
-              Add Todo
+            <Button type="submit" size="sm" form="category-form">
+              Upload File
             </Button>
           </DialogTrigger>
         </DialogFooter>

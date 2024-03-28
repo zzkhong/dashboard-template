@@ -13,7 +13,7 @@ import { Input } from "@/components/ui/input";
 
 import { useTaskStore } from "@/lib/store";
 
-export default function NewSectionDialog() {
+export default function NewCategoryDialog() {
   const addCol = useTaskStore((state) => state.addCol);
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
@@ -31,18 +31,16 @@ export default function NewSectionDialog() {
     <Dialog>
       <DialogTrigger asChild>
         <Button variant="secondary" size="lg" className="w-full">
-          ＋ Add New Section
+          ＋ Add New Category
         </Button>
       </DialogTrigger>
       <DialogContent className="sm:max-w-[425px]">
         <DialogHeader>
-          <DialogTitle>Add New Section</DialogTitle>
-          <DialogDescription>
-            What section you want to add today?
-          </DialogDescription>
+          <DialogTitle>Add New Category</DialogTitle>
+          <DialogDescription>What category you want to add?</DialogDescription>
         </DialogHeader>
         <form
-          id="todo-form"
+          id="category-form"
           className="grid gap-4 py-4"
           onSubmit={handleSubmit}
         >
@@ -50,15 +48,15 @@ export default function NewSectionDialog() {
             <Input
               id="title"
               name="title"
-              placeholder="Section title..."
+              placeholder="Category title..."
               className="col-span-4"
             />
           </div>
         </form>
         <DialogFooter>
           <DialogTrigger asChild>
-            <Button type="submit" size="sm" form="todo-form">
-              Add Section
+            <Button type="submit" size="sm" form="category-form">
+              Add Category
             </Button>
           </DialogTrigger>
         </DialogFooter>

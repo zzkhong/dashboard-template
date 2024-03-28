@@ -40,14 +40,14 @@ export const IMG_MAX_LIMIT = 3;
 const formSchema = z.object({
   name: z
     .string()
-    .min(3, { message: "Product Name must be at least 3 characters" }),
+    .min(3, { message: "User Name must be at least 3 characters" }),
   imgUrl: z
     .array(ImgSchema)
     .max(IMG_MAX_LIMIT, { message: "You can only add up to 3 images" })
     .min(1, { message: "At least one image must be added." }),
   description: z
     .string()
-    .min(3, { message: "Product description must be at least 3 characters" }),
+    .min(3, { message: "User description must be at least 3 characters" }),
   price: z.coerce.number(),
   category: z.string().min(1, { message: "Please select a category" }),
 });
@@ -59,7 +59,7 @@ interface ProductFormProps {
   categories: any;
 }
 
-export const EmployeeForm: React.FC<ProductFormProps> = ({
+export const UserForm: React.FC<ProductFormProps> = ({
   initialData,
   categories,
 }) => {
@@ -68,10 +68,10 @@ export const EmployeeForm: React.FC<ProductFormProps> = ({
   const { toast } = useToast();
   const [open, setOpen] = useState(false);
   const [loading, setLoading] = useState(false);
-  const title = initialData ? "Edit product" : "Create product";
-  const description = initialData ? "Edit a product." : "Add a new product";
-  const toastMessage = initialData ? "Product updated." : "Product created.";
-  const action = initialData ? "Save changes" : "Create";
+  const title = initialData ? "Edit User" : "Create User";
+  const description = initialData ? "Edit a user." : "Add a new user";
+  const toastMessage = initialData ? "User updated." : "User created.";
+  const action = initialData ? "Update User" : "Create User";
 
   const defaultValues = initialData
     ? initialData
@@ -88,7 +88,7 @@ export const EmployeeForm: React.FC<ProductFormProps> = ({
     defaultValues,
   });
 
-  const onSubmit = async (data: ProductFormValues) => {
+  const onSubmit = async (data: UserFormValues) => {
     try {
       setLoading(true);
       if (initialData) {
@@ -98,7 +98,7 @@ export const EmployeeForm: React.FC<ProductFormProps> = ({
         // console.log("product", res);
       }
       router.refresh();
-      router.push(`/dashboard/products`);
+      router.push(`/dashboard/users`);
       toast({
         variant: "destructive",
         title: "Uh oh! Something went wrong.",
@@ -157,23 +157,6 @@ export const EmployeeForm: React.FC<ProductFormProps> = ({
           onSubmit={form.handleSubmit(onSubmit)}
           className="space-y-8 w-full"
         >
-          <FormField
-            control={form.control}
-            name="imgUrl"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>Images</FormLabel>
-                <FormControl>
-                  <FileUpload
-                    onChange={field.onChange}
-                    value={field.value}
-                    onRemove={field.onChange}
-                  />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
           <div className="md:grid md:grid-cols-3 gap-8">
             <FormField
               control={form.control}
@@ -184,7 +167,7 @@ export const EmployeeForm: React.FC<ProductFormProps> = ({
                   <FormControl>
                     <Input
                       disabled={loading}
-                      placeholder="Product name"
+                      placeholder="User name"
                       {...field}
                     />
                   </FormControl>
@@ -201,22 +184,9 @@ export const EmployeeForm: React.FC<ProductFormProps> = ({
                   <FormControl>
                     <Input
                       disabled={loading}
-                      placeholder="Product description"
+                      placeholder="User description"
                       {...field}
                     />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <FormField
-              control={form.control}
-              name="price"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Price</FormLabel>
-                  <FormControl>
-                    <Input type="number" disabled={loading} {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
