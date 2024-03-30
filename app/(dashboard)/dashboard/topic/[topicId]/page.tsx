@@ -1,7 +1,10 @@
 import BreadCrumb from "@/components/breadcrumb";
 import { Heading } from "@/components/ui/heading";
 
-const breadcrumbItems = [{ title: "Topic", link: "/dashboard/topic" }];
+const breadcrumbItems = [
+  { title: "Topic", link: "/dashboard/topic" },
+  { title: "View", link: "/dashboard/topic" },
+];
 export default function page() {
   return (
     <>

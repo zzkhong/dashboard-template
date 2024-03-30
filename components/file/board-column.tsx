@@ -87,11 +87,6 @@ export function BoardColumn({ column, files, isOverlay }: BoardColumnProps) {
           <span className="sr-only">{`Move column: ${column.title}`}</span>
           <GripVertical />
         </Button>
-        {/* <span className="mr-auto !mt-0"> {column.title}</span> */}
-        {/* <Input
-          defaultValue={column.title}
-          className="text-base !mt-0 mr-auto"
-        /> */}
         <ColumnActions id={column.id} title={column.title} />
       </CardHeader>
       <CardContent className="flex flex-grow flex-col gap-4 p-2 overflow-y-auto overflow-x-hidden">

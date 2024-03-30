@@ -77,22 +77,21 @@ export function FileCard({ file, isOverlay }: FileCardProps) {
         dragging: isOverlay ? "overlay" : isDragging ? "over" : undefined,
       })}
     >
-      <CardHeader className="px-3 py-3 flex flex-row relative">
+      <CardHeader className="p-4 font-semibold border-b-2 text-left flex flex-row space-between items-center">
         <Button
           variant={"ghost"}
           {...attributes}
           {...listeners}
-          className="p-1 text-secondary-foreground/50 h-auto cursor-grab"
+          className="p-1 flex-1 justify-start text-secondary-foreground/50 h-auto cursor-grab"
         >
           <GripVertical />
-          <span className="text-lg text-primary pl-2">{file.title}</span>
+          <span className="text-lg text-primary pl-2 mr-0">{file.title}</span>
         </Button>
 
         {/* Dropdown Menu */}
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
-            <Button variant="ghost" className="ml-1">
-              <span className="sr-only">Actions</span>
+            <Button variant="ghost">
               <DotsHorizontalIcon className="h-4 w-4" />
             </Button>
           </DropdownMenuTrigger>
@@ -115,7 +114,7 @@ export function FileCard({ file, isOverlay }: FileCardProps) {
           </DropdownMenuContent>
         </DropdownMenu>
       </CardHeader>
-      <CardContent className="px-3 text-left whitespace-pre-wrap">
+      <CardContent className="px-3 pt-4 text-left whitespace-pre-wrap">
         <Badge variant={"default"} className="ml-auto font-semibold mr-2">
           Public
         </Badge>
