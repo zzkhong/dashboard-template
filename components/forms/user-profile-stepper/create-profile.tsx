@@ -46,11 +46,11 @@ export const CreateProfileOne: React.FC<ProfileFormType> = ({
   const [open, setOpen] = useState(false);
   const [loading, setLoading] = useState(false);
   const [imgLoading, setImgLoading] = useState(false);
-  const title = initialData ? "Edit product" : "Create Your Profile";
+  const title = initialData ? "Edit User Profile" : "Create User Profile";
   const description = initialData
-    ? "Edit a product."
-    : "To create your resume, we first need some basic information about you.";
-  const toastMessage = initialData ? "Product updated." : "Product created.";
+    ? "Edit user profile."
+    : "Fill in basic information about the user.";
+  const toastMessage = initialData ? "User updated." : "User created.";
   const action = initialData ? "Save changes" : "Create";
   const [previousStep, setPreviousStep] = useState(0);
   const [currentStep, setCurrentStep] = useState(0);
@@ -96,7 +96,7 @@ export const CreateProfileOne: React.FC<ProfileFormType> = ({
         // console.log("product", res);
       }
       router.refresh();
-      router.push(`/dashboard/products`);
+      router.push(`/dashboard/user`);
     } catch (error: any) {
     } finally {
       setLoading(false);
@@ -117,7 +117,6 @@ export const CreateProfileOne: React.FC<ProfileFormType> = ({
   };
 
   const processForm: SubmitHandler<ProfileFormValues> = (data) => {
-    console.log("data ==>", data);
     setData(data);
     // api call and reset
     // form.reset();
@@ -309,7 +308,7 @@ export const CreateProfileOne: React.FC<ProfileFormType> = ({
                       <FormControl>
                         <Input
                           type="number"
-                          placeholder="Enter you contact number"
+                          placeholder="Enter contact number"
                           disabled={loading}
                           {...field}
                         />
@@ -508,7 +507,7 @@ export const CreateProfileOne: React.FC<ProfileFormType> = ({
                                     <SelectTrigger>
                                       <SelectValue
                                         defaultValue={field.value}
-                                        placeholder="Select your job country"
+                                        placeholder="Select job country"
                                       />
                                     </SelectTrigger>
                                   </FormControl>
@@ -543,7 +542,7 @@ export const CreateProfileOne: React.FC<ProfileFormType> = ({
                                     <SelectTrigger>
                                       <SelectValue
                                         defaultValue={field.value}
-                                        placeholder="Select your job city"
+                                        placeholder="Select job city"
                                       />
                                     </SelectTrigger>
                                   </FormControl>

@@ -1,23 +1,19 @@
 import BreadCrumb from "@/components/breadcrumb";
-import { UserForm } from "@/components/forms/user-form";
-import React from "react";
+import { CreateProfileOne } from "@/components/forms/user-profile-stepper/create-profile";
+import { ScrollArea } from "@/components/ui/scroll-area";
 
-export default function Page() {
-  const breadcrumbItems = [
-    { title: "User", link: "/dashboard/user" },
-    { title: "Create", link: "/dashboard/user/create" },
-  ];
+const breadcrumbItems = [
+  { title: "User", link: "/dashboard/user" },
+  { title: "Create", link: "/dashboard/user/create" },
+];
+
+export default function page() {
   return (
-    <div className="flex-1 space-y-4 p-8">
-      <BreadCrumb items={breadcrumbItems} />
-      <UserForm
-        categories={[
-          { _id: "shirts", name: "shirts" },
-          { _id: "pants", name: "pants" },
-        ]}
-        initialData={null}
-        key={null}
-      />
-    </div>
+    <ScrollArea className="h-full">
+      <div className="flex-1 space-y-4 p-4 md:p-8 pt-6">
+        <BreadCrumb items={breadcrumbItems} />
+        <CreateProfileOne categories={[]} initialData={null} />
+      </div>
+    </ScrollArea>
   );
 }

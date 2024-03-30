@@ -26,7 +26,7 @@ export default function MailPage({ items = topics }: TopicListProps) {
         </h2>
 
         <Link
-          href={"/dashboard/dashboard/new"}
+          href={"/dashboard/new"}
           className={cn(buttonVariants({ variant: "default" }))}
         >
           <Plus className="mr-2 h-4 w-4" />
