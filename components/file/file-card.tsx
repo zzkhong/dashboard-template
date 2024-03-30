@@ -5,7 +5,16 @@ import { useSortable } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
 import { cva } from "class-variance-authority";
 import { GripVertical } from "lucide-react";
-import { Badge } from "../ui/badge";
+import { Badge } from "@/components/ui/badge";
+import { DotsHorizontalIcon } from "@radix-ui/react-icons";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
+import { useRouter } from "next/navigation";
 
 // export interface File {
 //   id: UniqueIdentifier;
@@ -26,6 +35,8 @@ export interface FileDragData {
 }
 
 export function FileCard({ file, isOverlay }: FileCardProps) {
+  const router = useRouter();
+
   const {
     setNodeRef,
     attributes,
@@ -66,22 +77,51 @@ export function FileCard({ file, isOverlay }: FileCardProps) {
         dragging: isOverlay ? "overlay" : isDragging ? "over" : undefined,
       })}
     >
-      <CardHeader className="px-3 py-3 space-between flex flex-row border-b-2 border-secondary relative">
+      <CardHeader className="px-3 py-3 flex flex-row relative">
         <Button
           variant={"ghost"}
           {...attributes}
           {...listeners}
-          className="p-1 text-secondary-foreground/50 -ml-2 h-auto cursor-grab"
+          className="p-1 text-secondary-foreground/50 h-auto cursor-grab"
         >
-          <span className="sr-only">Move file</span>
           <GripVertical />
+          <span className="text-lg text-primary pl-2">{file.title}</span>
         </Button>
-        <Badge variant={"outline"} className="ml-auto font-semibold">
-          File
-        </Badge>
+
+        {/* Dropdown Menu */}
+        <DropdownMenu>
+          <DropdownMenuTrigger asChild>
+            <Button variant="ghost" className="ml-1">
+              <span className="sr-only">Actions</span>
+              <DotsHorizontalIcon className="h-4 w-4" />
+            </Button>
+          </DropdownMenuTrigger>
+          <DropdownMenuContent align="center">
+            <DropdownMenuItem
+              onSelect={() => {
+                router.push(`/dashboard/file/${file.id}`);
+              }}
+            >
+              View
+            </DropdownMenuItem>
+            <DropdownMenuSeparator />
+            <DropdownMenuItem onSelect={() => {}}>Rename</DropdownMenuItem>
+            <DropdownMenuSeparator />
+            <DropdownMenuItem onSelect={() => {}}>Duplicate</DropdownMenuItem>
+            <DropdownMenuSeparator />
+            <DropdownMenuItem onSelect={() => {}} className="text-red-600">
+              Delete
+            </DropdownMenuItem>
+          </DropdownMenuContent>
+        </DropdownMenu>
       </CardHeader>
-      <CardContent className="px-3 pt-3 pb-6 text-left whitespace-pre-wrap">
-        {file.title}
+      <CardContent className="px-3 text-left whitespace-pre-wrap">
+        <Badge variant={"default"} className="ml-auto font-semibold mr-2">
+          Public
+        </Badge>
+        <Badge variant={"outline"} className="ml-auto font-semibold">
+          Whatever tag
+        </Badge>
       </CardContent>
     </Card>
   );

@@ -86,7 +86,7 @@ export function ColumnActions({
             onSelect={() => setShowDeleteDialog(true)}
             className="text-red-600"
           >
-            Delete Section
+            Delete
           </DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>

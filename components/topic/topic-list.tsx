@@ -3,27 +3,25 @@ import { ScrollArea } from "@/components/ui/scroll-area";
 import { cn } from "@/lib/utils";
 import { Topic, topics } from "./data";
 import { Badge } from "@/components/ui/badge";
-import { ComponentProps, useState } from "react";
+import { ComponentProps } from "react";
 import formatDistanceToNow from "date-fns/formatDistanceToNow";
+import Link from "next/link";
 
 interface TopicListProps {
   items?: Topic[];
 }
 
 export function TopicList({ items = topics }: TopicListProps) {
-  const [topic, setTopic] = useState<Topic>();
-
   return (
     <ScrollArea className="h-[calc(80vh)]">
       <div className="flex flex-col gap-2 p-4 pt-0">
         {items?.map((item) => (
-          <button
+          <Link
+            href={`/dashboard/topic/${item.id}`}
             key={item.id}
             className={cn(
               "flex flex-col items-start gap-2 rounded-lg border p-3 text-left text-sm transition-all hover:bg-accent",
-              topic?.id === item.id && "bg-muted",
             )}
-            onClick={() => setTopic(item)}
           >
             <div className="flex w-full flex-col gap-1">
               <div className="flex items-center">
@@ -33,14 +31,7 @@ export function TopicList({ items = topics }: TopicListProps) {
                     <span className="flex h-2 w-2 rounded-full bg-blue-600" />
                   )}
                 </div>
-                <div
-                  className={cn(
-                    "ml-auto text-xs",
-                    topic?.id === item.id
-                      ? "text-foreground"
-                      : "text-muted-foreground",
-                  )}
-                >
+                <div className={cn("ml-auto text-xs", "text-foreground")}>
                   {formatDistanceToNow(new Date(item.date), {
                     addSuffix: true,
                   })}
@@ -60,7 +51,7 @@ export function TopicList({ items = topics }: TopicListProps) {
                 ))}
               </div>
             ) : null}
-          </button>
+          </Link>
         ))}
       </div>
     </ScrollArea>
