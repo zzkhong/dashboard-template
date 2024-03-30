@@ -3,8 +3,8 @@ import Sidebar from "@/components/layout/sidebar";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Demo Template",
-  description: "Basic dashboard with Next.js and Shadcn",
+  title: "Demo",
+  description: "CK Pathology Prototype",
 };
 
 export default function DashboardLayout({

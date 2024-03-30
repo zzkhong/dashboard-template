@@ -112,10 +112,10 @@ export type User = {
 
 export const navItems: NavItem[] = [
   {
-    title: "Dashboard",
+    title: "Home",
     href: "/dashboard",
-    icon: "dashboard",
-    label: "Dashboard",
+    icon: "topic",
+    label: "Home",
   },
   {
     title: "File",
@@ -130,9 +130,9 @@ export const navItems: NavItem[] = [
     label: "user",
   },
   {
-    title: "Topic",
-    href: "/dashboard/topic",
-    icon: "topic",
-    label: "topic",
+    title: "Activity",
+    href: "/dashboard/activity",
+    icon: "activity",
+    label: "activity",
   },
 ];

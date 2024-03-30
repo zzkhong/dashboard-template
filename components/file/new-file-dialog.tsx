@@ -1,6 +1,6 @@
 "use client";
 
-import { Button } from "@/components/ui/button";
+import { Button, buttonVariants } from "@/components/ui/button";
 import {
   Dialog,
   DialogContent,
@@ -14,6 +14,8 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "../ui/textarea";
 
 import { useFileStore } from "@/lib/store";
+import { cn } from "@/lib/utils";
+import { Plus } from "lucide-react";
 
 export default function NewFileDialog() {
   const addFile = useFileStore((state) => state.addFile);
@@ -32,8 +34,8 @@ export default function NewFileDialog() {
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <Button variant="secondary" size="sm">
-          ＋ Upload New File
+        <Button className={cn(buttonVariants({ variant: "default" }))}>
+          <Plus className="mr-2 h-4 w-4" /> Upload File
         </Button>
       </DialogTrigger>
       <DialogContent className="sm:max-w-[425px]">
