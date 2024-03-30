@@ -2,7 +2,7 @@
 import { Fragment, useEffect, useMemo, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 
-import { Task, useTaskStore } from "@/lib/store";
+import { File, useFileStore } from "@/lib/store";
 import { hasDraggableData } from "@/lib/utils";
 import {
   Announcements,
@@ -21,7 +21,7 @@ import { SortableContext, arrayMove } from "@dnd-kit/sortable";
 import type { Column } from "./board-column";
 import { BoardColumn, BoardContainer } from "./board-column";
 import NewCategoryDialog from "./new-category-dialog";
-import { TaskCard } from "./task-card";
+import { FileCard } from "./file-card";
 // import { coordinateGetter } from "./multipleContainersKeyboardPreset";
 
 const defaultCols = [
@@ -41,32 +41,32 @@ const defaultCols = [
 
 export type ColumnId = (typeof defaultCols)[number]["id"];
 
-const initialTasks: Task[] = [
+const initialFiles: File[] = [
   {
-    id: "task1",
+    id: "file1",
     status: "DONE",
     title: "Project initiation and planning",
   },
   {
-    id: "task2",
+    id: "file2",
     status: "DONE",
     title: "Gather requirements from stakeholders",
   },
 ];
 export function FileBoard() {
   // const [columns, setColumns] = useState<Column[]>(defaultCols);
-  const columns = useTaskStore((state) => state.columns);
-  const setColumns = useTaskStore((state) => state.setCols);
-  const pickedUpTaskColumn = useRef<ColumnId | null>(null);
+  const columns = useFileStore((state) => state.columns);
+  const setColumns = useFileStore((state) => state.setCols);
+  const pickedUpFileColumn = useRef<ColumnId | null>(null);
   const columnsId = useMemo(() => columns.map((col) => col.id), [columns]);
 
-  // const [tasks, setTasks] = useState<Task[]>(initialTasks);
-  const tasks = useTaskStore((state) => state.tasks);
-  const setTasks = useTaskStore((state) => state.setTasks);
+  // const [files, setFiles] = useState<File[]>(initialFiles);
+  const files = useFileStore((state) => state.files);
+  const setFiles = useFileStore((state) => state.setFiles);
   const [activeColumn, setActiveColumn] = useState<Column | null>(null);
   const [isMounted, setIsMounted] = useState<Boolean>(false);
 
-  const [activeTask, setActiveTask] = useState<Task | null>(null);
+  const [activeFile, setActiveFile] = useState<File | null>(null);
 
   const sensors = useSensors(
     useSensor(MouseSensor),
@@ -81,17 +81,17 @@ export function FileBoard() {
   }, [isMounted]);
 
   useEffect(() => {
-    useTaskStore.persist.rehydrate();
+    useFileStore.persist.rehydrate();
   }, []);
   if (!isMounted) return;
 
-  function getDraggingTaskData(taskId: UniqueIdentifier, columnId: ColumnId) {
-    const tasksInColumn = tasks.filter((task) => task.status === columnId);
-    const taskPosition = tasksInColumn.findIndex((task) => task.id === taskId);
+  function getDraggingFileData(fileId: UniqueIdentifier, columnId: ColumnId) {
+    const filesInColumn = files.filter((file) => file.status === columnId);
+    const filePosition = filesInColumn.findIndex((file) => file.id === fileId);
     const column = columns.find((col) => col.id === columnId);
     return {
-      tasksInColumn,
-      taskPosition,
+      filesInColumn,
+      filePosition,
       column,
     };
   }
@@ -105,15 +105,15 @@ export function FileBoard() {
         return `Picked up Column ${startColumn?.title} at position: ${
           startColumnIdx + 1
         } of ${columnsId.length}`;
-      } else if (active.data.current?.type === "Task") {
-        pickedUpTaskColumn.current = active.data.current.task.status;
-        const { tasksInColumn, taskPosition, column } = getDraggingTaskData(
+      } else if (active.data.current?.type === "File") {
+        pickedUpFileColumn.current = active.data.current.file.status;
+        const { filesInColumn, filePosition, column } = getDraggingFileData(
           active.id,
-          pickedUpTaskColumn.current,
+          pickedUpFileColumn.current,
         );
-        return `Picked up Task ${active.data.current.task.title} at position: ${
-          taskPosition + 1
-        } of ${tasksInColumn.length} in column ${column?.title}`;
+        return `Picked up File ${active.data.current.file.title} at position: ${
+          filePosition + 1
+        } of ${filesInColumn.length} in column ${column?.title}`;
       }
     },
     onDragOver({ active, over }) {
@@ -128,28 +128,28 @@ export function FileBoard() {
           over.data.current.column.title
         } at position ${overColumnIdx + 1} of ${columnsId.length}`;
       } else if (
-        active.data.current?.type === "Task" &&
-        over.data.current?.type === "Task"
+        active.data.current?.type === "File" &&
+        over.data.current?.type === "File"
       ) {
-        const { tasksInColumn, taskPosition, column } = getDraggingTaskData(
+        const { filesInColumn, filePosition, column } = getDraggingFileData(
           over.id,
-          over.data.current.task.status,
+          over.data.current.file.status,
         );
-        if (over.data.current.task.status !== pickedUpTaskColumn.current) {
-          return `Task ${
-            active.data.current.task.title
+        if (over.data.current.file.status !== pickedUpFileColumn.current) {
+          return `File ${
+            active.data.current.file.title
           } was moved over column ${column?.title} in position ${
-            taskPosition + 1
-          } of ${tasksInColumn.length}`;
+            filePosition + 1
+          } of ${filesInColumn.length}`;
         }
-        return `Task was moved over position ${taskPosition + 1} of ${
-          tasksInColumn.length
+        return `File was moved over position ${filePosition + 1} of ${
+          filesInColumn.length
         } in column ${column?.title}`;
       }
     },
     onDragEnd({ active, over }) {
       if (!hasDraggableData(active) || !hasDraggableData(over)) {
-        pickedUpTaskColumn.current = null;
+        pickedUpFileColumn.current = null;
         return;
       }
       if (
@@ -164,26 +164,26 @@ export function FileBoard() {
           columnsId.length
         }`;
       } else if (
-        active.data.current?.type === "Task" &&
-        over.data.current?.type === "Task"
+        active.data.current?.type === "File" &&
+        over.data.current?.type === "File"
       ) {
-        const { tasksInColumn, taskPosition, column } = getDraggingTaskData(
+        const { filesInColumn, filePosition, column } = getDraggingFileData(
           over.id,
-          over.data.current.task.status,
+          over.data.current.file.status,
         );
-        if (over.data.current.task.status !== pickedUpTaskColumn.current) {
-          return `Task was dropped into column ${column?.title} in position ${
-            taskPosition + 1
-          } of ${tasksInColumn.length}`;
+        if (over.data.current.file.status !== pickedUpFileColumn.current) {
+          return `File was dropped into column ${column?.title} in position ${
+            filePosition + 1
+          } of ${filesInColumn.length}`;
         }
-        return `Task was dropped into position ${taskPosition + 1} of ${
-          tasksInColumn.length
+        return `File was dropped into position ${filePosition + 1} of ${
+          filesInColumn.length
         } in column ${column?.title}`;
       }
-      pickedUpTaskColumn.current = null;
+      pickedUpFileColumn.current = null;
     },
     onDragCancel({ active }) {
-      pickedUpTaskColumn.current = null;
+      pickedUpFileColumn.current = null;
       if (!hasDraggableData(active)) return;
       return `Dragging ${active.data.current?.type} cancelled.`;
     },
@@ -205,7 +205,7 @@ export function FileBoard() {
             <Fragment key={col.id}>
               <BoardColumn
                 column={col}
-                tasks={tasks.filter((task) => task.status === col.id)}
+                files={files.filter((file) => file.status === col.id)}
               />
               {index === columns?.length - 1 && (
                 <div className="w-[300px]">
@@ -225,10 +225,10 @@ export function FileBoard() {
               <BoardColumn
                 isOverlay
                 column={activeColumn}
-                tasks={tasks.filter((task) => task.status === activeColumn.id)}
+                files={files.filter((file) => file.status === activeColumn.id)}
               />
             )}
-            {activeTask && <TaskCard task={activeTask} isOverlay />}
+            {activeFile && <FileCard file={activeFile} isOverlay />}
           </DragOverlay>,
           document.body,
         )}
@@ -243,15 +243,15 @@ export function FileBoard() {
       return;
     }
 
-    if (data?.type === "Task") {
-      setActiveTask(data.task);
+    if (data?.type === "File") {
+      setActiveFile(data.file);
       return;
     }
   }
 
   function onDragEnd(event: DragEndEvent) {
     setActiveColumn(null);
-    setActiveTask(null);
+    setActiveFile(null);
 
     const { active, over } = event;
     if (!over) return;
@@ -289,34 +289,34 @@ export function FileBoard() {
     const activeData = active.data.current;
     const overData = over.data.current;
 
-    const isActiveATask = activeData?.type === "Task";
-    const isOverATask = activeData?.type === "Task";
+    const isActiveAFile = activeData?.type === "File";
+    const isOverAFile = activeData?.type === "File";
 
-    if (!isActiveATask) return;
+    if (!isActiveAFile) return;
 
-    // Im dropping a Task over another Task
-    if (isActiveATask && isOverATask) {
-      const activeIndex = tasks.findIndex((t) => t.id === activeId);
-      const overIndex = tasks.findIndex((t) => t.id === overId);
-      const activeTask = tasks[activeIndex];
-      const overTask = tasks[overIndex];
-      if (activeTask && overTask && activeTask.status !== overTask.status) {
-        activeTask.status = overTask.status;
-        setTasks(arrayMove(tasks, activeIndex, overIndex - 1));
+    // Im dropping a File over another File
+    if (isActiveAFile && isOverAFile) {
+      const activeIndex = files.findIndex((t) => t.id === activeId);
+      const overIndex = files.findIndex((t) => t.id === overId);
+      const activeFile = files[activeIndex];
+      const overFile = files[overIndex];
+      if (activeFile && overFile && activeFile.status !== overFile.status) {
+        activeFile.status = overFile.status;
+        setFiles(arrayMove(files, activeIndex, overIndex - 1));
       }
 
-      setTasks(arrayMove(tasks, activeIndex, overIndex));
+      setFiles(arrayMove(files, activeIndex, overIndex));
     }
 
     const isOverAColumn = overData?.type === "Column";
 
-    // Im dropping a Task over a column
-    if (isActiveATask && isOverAColumn) {
-      const activeIndex = tasks.findIndex((t) => t.id === activeId);
-      const activeTask = tasks[activeIndex];
-      if (activeTask) {
-        activeTask.status = overId as ColumnId;
-        setTasks(arrayMove(tasks, activeIndex, activeIndex));
+    // Im dropping a File over a column
+    if (isActiveAFile && isOverAColumn) {
+      const activeIndex = files.findIndex((t) => t.id === activeId);
+      const activeFile = files[activeIndex];
+      if (activeFile) {
+        activeFile.status = overId as ColumnId;
+        setFiles(arrayMove(files, activeIndex, activeIndex));
       }
     }
   }

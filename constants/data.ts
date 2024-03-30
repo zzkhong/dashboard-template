@@ -130,9 +130,9 @@ export const navItems: NavItem[] = [
     label: "user",
   },
   {
-    title: "Discussion",
-    href: "/dashboard/discussion",
+    title: "Topic",
+    href: "/dashboard/topic",
     icon: "topic",
-    label: "discussion",
+    label: "topic",
   },
 ];

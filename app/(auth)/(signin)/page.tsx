@@ -38,16 +38,6 @@ export default function AuthenticationPage() {
           </svg>
           Logo
         </div>
-        <div className="relative z-20 mt-auto">
-          <blockquote className="space-y-2">
-            <p className="text-lg">
-              &ldquo;This library has saved me countless hours of work and
-              helped me deliver stunning designs to my clients faster than ever
-              before.&rdquo;
-            </p>
-            <footer className="text-sm">Sofia Davis</footer>
-          </blockquote>
-        </div>
       </div>
       <div className="p-4 lg:p-8 h-full flex items-center">
         <div className="mx-auto flex w-full flex-col justify-center space-y-6 sm:w-[350px]">

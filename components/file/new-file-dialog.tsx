@@ -13,10 +13,10 @@ import {
 import { Input } from "@/components/ui/input";
 import { Textarea } from "../ui/textarea";
 
-import { useTaskStore } from "@/lib/store";
+import { useFileStore } from "@/lib/store";
 
 export default function NewFileDialog() {
-  const addTask = useTaskStore((state) => state.addTask);
+  const addFile = useFileStore((state) => state.addFile);
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -26,7 +26,7 @@ export default function NewFileDialog() {
     const { title, description } = Object.fromEntries(formData);
 
     if (typeof title !== "string" || typeof description !== "string") return;
-    addTask(title, description);
+    addFile(title, description);
   };
 
   return (

@@ -20,7 +20,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { useToast } from "@/components/ui/use-toast";
-import { useTaskStore } from "@/lib/store";
+import { useFileStore } from "@/lib/store";
 import { UniqueIdentifier } from "@dnd-kit/core";
 import { Input } from "../ui/input";
 
@@ -33,8 +33,8 @@ export function ColumnActions({
 }) {
   const [open, setIsOpen] = React.useState(false);
   const [name, setName] = React.useState(title);
-  const updateCol = useTaskStore((state) => state.updateCol);
-  const removeCol = useTaskStore((state) => state.removeCol);
+  const updateCol = useFileStore((state) => state.updateCol);
+  const removeCol = useFileStore((state) => state.removeCol);
   const [editDisable, setIsEditDisable] = React.useState(true);
   const [showDeleteDialog, setShowDeleteDialog] = React.useState(false);
   const inputRef = React.useRef<HTMLInputElement>(null);
@@ -97,7 +97,7 @@ export function ColumnActions({
               Are you sure want to delete column?
             </AlertDialogTitle>
             <AlertDialogDescription>
-              NOTE: All tasks related to this category will also be deleted.
+              NOTE: All files related to this category will also be deleted.
             </AlertDialogDescription>
           </AlertDialogHeader>
           <AlertDialogFooter>

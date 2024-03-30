@@ -15,7 +15,7 @@ const defaultCols = [
 
 export type ColumnId = (typeof defaultCols)[number]["id"];
 
-export type Task = {
+export type File = {
   id: string;
   title: string;
   description?: string;
@@ -23,32 +23,32 @@ export type Task = {
 };
 
 export type State = {
-  tasks: Task[];
+  files: File[];
   columns: Column[];
-  draggedTask: string | null;
+  draggedFile: string | null;
 };
 
 export type Actions = {
-  addTask: (title: string, description?: string) => void;
+  addFile: (title: string, description?: string) => void;
   addCol: (title: string) => void;
-  dragTask: (id: string | null) => void;
-  removeTask: (title: string) => void;
+  dragFile: (id: string | null) => void;
+  removeFile: (title: string) => void;
   removeCol: (id: UniqueIdentifier) => void;
-  setTasks: (updatedTask: Task[]) => void;
+  setFiles: (updatedFile: File[]) => void;
   setCols: (cols: Column[]) => void;
   updateCol: (id: UniqueIdentifier, newName: string) => void;
 };
 
-export const useTaskStore = create<State & Actions>()(
+export const useFileStore = create<State & Actions>()(
   persist(
     (set) => ({
-      tasks: [],
+      files: [],
       columns: defaultCols,
-      draggedTask: null,
-      addTask: (title: string, description?: string) =>
+      draggedFile: null,
+      addFile: (title: string, description?: string) =>
         set((state) => ({
-          tasks: [
-            ...state.tasks,
+          files: [
+            ...state.files,
             { id: uuid(), title, description, status: "TODO" },
           ],
         })),
@@ -62,18 +62,18 @@ export const useTaskStore = create<State & Actions>()(
         set((state) => ({
           columns: [...state.columns, { id: uuid(), title }],
         })),
-      dragTask: (id: string | null) => set({ draggedTask: id }),
-      removeTask: (id: string) =>
+      dragFile: (id: string | null) => set({ draggedFile: id }),
+      removeFile: (id: string) =>
         set((state) => ({
-          tasks: state.tasks.filter((task) => task.id !== id),
+          files: state.files.filter((file) => file.id !== id),
         })),
       removeCol: (id: UniqueIdentifier) =>
         set((state) => ({
           columns: state.columns.filter((col) => col.id !== id),
         })),
-      setTasks: (newTasks: Task[]) => set({ tasks: newTasks }),
+      setFiles: (newFiles: File[]) => set({ files: newFiles }),
       setCols: (newCols: Column[]) => set({ columns: newCols }),
     }),
-    { name: "task-store", skipHydration: true },
+    { name: "file-store", skipHydration: true },
   ),
 );

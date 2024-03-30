@@ -1,4 +1,4 @@
-import { Task } from "@/lib/store";
+import { File } from "@/lib/store";
 import { useDndContext, type UniqueIdentifier } from "@dnd-kit/core";
 import { SortableContext, useSortable } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
@@ -8,7 +8,7 @@ import { useMemo } from "react";
 import { Button } from "../ui/button";
 import { Card, CardContent, CardHeader } from "../ui/card";
 import { ColumnActions } from "./column-action";
-import { TaskCard } from "./task-card";
+import { FileCard } from "./file-card";
 
 export interface Column {
   id: UniqueIdentifier;
@@ -24,14 +24,14 @@ export interface ColumnDragData {
 
 interface BoardColumnProps {
   column: Column;
-  tasks: Task[];
+  files: File[];
   isOverlay?: boolean;
 }
 
-export function BoardColumn({ column, tasks, isOverlay }: BoardColumnProps) {
-  const tasksIds = useMemo(() => {
-    return tasks.map((task) => task.id);
-  }, [tasks]);
+export function BoardColumn({ column, files, isOverlay }: BoardColumnProps) {
+  const filesIds = useMemo(() => {
+    return files.map((file) => file.id);
+  }, [files]);
 
   const {
     setNodeRef,
@@ -95,9 +95,9 @@ export function BoardColumn({ column, tasks, isOverlay }: BoardColumnProps) {
         <ColumnActions id={column.id} title={column.title} />
       </CardHeader>
       <CardContent className="flex flex-grow flex-col gap-4 p-2 overflow-y-auto overflow-x-hidden">
-        <SortableContext items={tasksIds}>
-          {tasks.map((task) => (
-            <TaskCard key={task.id} task={task} />
+        <SortableContext items={filesIds}>
+          {files.map((file) => (
+            <FileCard key={file.id} file={file} />
           ))}
         </SortableContext>
       </CardContent>

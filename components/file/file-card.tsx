@@ -1,31 +1,31 @@
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
-import { Task } from "@/lib/store";
+import { File } from "@/lib/store";
 import { useSortable } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
 import { cva } from "class-variance-authority";
 import { GripVertical } from "lucide-react";
 import { Badge } from "../ui/badge";
 
-// export interface Task {
+// export interface File {
 //   id: UniqueIdentifier;
 //   columnId: ColumnId;
 //   content: string;
 // }
 
-interface TaskCardProps {
-  task: Task;
+interface FileCardProps {
+  file: File;
   isOverlay?: boolean;
 }
 
-export type TaskType = "Task";
+export type FileType = "File";
 
-export interface TaskDragData {
-  type: TaskType;
-  task: Task;
+export interface FileDragData {
+  type: FileType;
+  file: File;
 }
 
-export function TaskCard({ task, isOverlay }: TaskCardProps) {
+export function FileCard({ file, isOverlay }: FileCardProps) {
   const {
     setNodeRef,
     attributes,
@@ -34,13 +34,13 @@ export function TaskCard({ task, isOverlay }: TaskCardProps) {
     transition,
     isDragging,
   } = useSortable({
-    id: task.id,
+    id: file.id,
     data: {
-      type: "Task",
-      task,
-    } satisfies TaskDragData,
+      type: "File",
+      file,
+    } satisfies FileDragData,
     attributes: {
-      roleDescription: "Task",
+      roleDescription: "File",
     },
   });
 
@@ -73,15 +73,15 @@ export function TaskCard({ task, isOverlay }: TaskCardProps) {
           {...listeners}
           className="p-1 text-secondary-foreground/50 -ml-2 h-auto cursor-grab"
         >
-          <span className="sr-only">Move task</span>
+          <span className="sr-only">Move file</span>
           <GripVertical />
         </Button>
         <Badge variant={"outline"} className="ml-auto font-semibold">
-          Task
+          File
         </Badge>
       </CardHeader>
       <CardContent className="px-3 pt-3 pb-6 text-left whitespace-pre-wrap">
-        {task.title}
+        {file.title}
       </CardContent>
     </Card>
   );

@@ -2,9 +2,9 @@ import { type ClassValue, clsx } from "clsx";
 import { twMerge } from "tailwind-merge";
 import { Active, DataRef, Over } from "@dnd-kit/core";
 import { ColumnDragData } from "@/components/file/board-column";
-import { TaskDragData } from "@/components/file/task-card";
+import { FileDragData } from "@/components/file/file-card";
 
-type DraggableData = ColumnDragData | TaskDragData;
+type DraggableData = ColumnDragData | FileDragData;
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
@@ -21,7 +21,7 @@ export function hasDraggableData<T extends Active | Over>(
 
   const data = entry.data.current;
 
-  if (data?.type === "Column" || data?.type === "Task") {
+  if (data?.type === "Column" || data?.type === "File") {
     return true;
   }
 

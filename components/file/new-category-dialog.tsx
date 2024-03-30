@@ -11,10 +11,10 @@ import {
 } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 
-import { useTaskStore } from "@/lib/store";
+import { useFileStore } from "@/lib/store";
 
 export default function NewCategoryDialog() {
-  const addCol = useTaskStore((state) => state.addCol);
+  const addCol = useFileStore((state) => state.addCol);
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
