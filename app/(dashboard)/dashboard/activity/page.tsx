@@ -14,14 +14,13 @@ const breadcrumbItems = [{ title: "Activity", link: "/dashboard/activity" }];
 
 export default function page() {
   return (
-    <div className="flex-1 space-y-4  p-4 md:p-8 pt-6">
-      <BreadCrumb items={breadcrumbItems} />
+    <ScrollArea className="h-full">
+      <div className="flex-1 space-y-4  p-4 md:p-8 pt-6">
+        <BreadCrumb items={breadcrumbItems} />
 
-      <div className="flex items-start justify-between">
-        <Heading title={`Activity Log`} description="View users activity" />
-      </div>
-
-      <ScrollArea className="h-full">
+        <div className="flex items-start justify-between">
+          <Heading title={`Activity Log`} description="View users activity" />
+        </div>
         <div className="flex-1 space-y-4 p-4 md:p-8 pt-6">
           <div className="space-y-4">
             <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
@@ -81,7 +80,7 @@ export default function page() {
               </Card>
             </div>
             <div className="grid gap-4 grid-cols-1 md:grid-cols-2 lg:grid-cols-7">
-              <Card className="col-span-full">
+              <Card className="col-span-4">
                 <CardHeader>
                   <CardTitle>Activity Log</CardTitle>
                   <CardDescription>
@@ -95,7 +94,7 @@ export default function page() {
             </div>
           </div>
         </div>
-      </ScrollArea>
-    </div>
+      </div>
+    </ScrollArea>
   );
 }
