@@ -1,5 +1,13 @@
 import BreadCrumb from "@/components/breadcrumb";
 import { Heading } from "@/components/ui/heading";
+import dynamic from "next/dynamic";
+
+const Image = dynamic(
+  () => import("@samvera/clover-iiif/image").then((Clover) => Clover),
+  {
+    ssr: false,
+  },
+);
 
 const breadcrumbItems = [
   { title: "Topic", link: "/dashboard/topic" },
@@ -14,6 +22,12 @@ export default function page() {
           <Heading title={`Topic`} description="topic description" />
         </div>
       </div>
+
+      {/* eslint-disable-next-line jsx-a11y/alt-text */}
+      <Image
+        label="File Title"
+        src="https://ids.lib.harvard.edu/ids/iiif/18772291/full/full/0/default.jpg"
+      />
     </>
   );
 }
