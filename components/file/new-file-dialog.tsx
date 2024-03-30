@@ -11,14 +11,45 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
-import { Textarea } from "../ui/textarea";
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "@/components/ui/form";
+import { Textarea } from "@/components/ui/textarea";
 
 import { useFileStore } from "@/lib/store";
 import { cn } from "@/lib/utils";
 import { Plus } from "lucide-react";
+import * as z from "zod";
+import { useState } from "react";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import FileUpload from "../file-upload";
+
+const formSchema = z.object({
+  title: z.string(),
+  description: z.string(),
+  file: z.string(),
+});
 
 export default function NewFileDialog() {
+  const [loading, setLoading] = useState(false);
   const addFile = useFileStore((state) => state.addFile);
+
+  const defaultValues = {
+    title: "",
+    description: "",
+    file: "",
+  };
+
+  const form = useForm<any>({
+    resolver: zodResolver(formSchema),
+    defaultValues,
+  });
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -43,28 +74,65 @@ export default function NewFileDialog() {
           <DialogTitle>Upload New File</DialogTitle>
           <DialogDescription>Select file to upload</DialogDescription>
         </DialogHeader>
-        <form
-          id="category-form"
-          className="grid gap-4 py-4"
-          onSubmit={handleSubmit}
-        >
-          <div className="grid grid-cols-4 items-center gap-4">
-            <Input
-              id="title"
+        <Form {...form}>
+          <form
+            id="category-form"
+            className="grid gap-4 py-4"
+            onSubmit={handleSubmit}
+          >
+            <FormField
+              control={form.control}
               name="title"
-              placeholder="File title..."
-              className="col-span-4"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Title</FormLabel>
+                  <FormControl>
+                    <Input
+                      disabled={loading}
+                      placeholder="Title..."
+                      {...field}
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
             />
-          </div>
-          <div className="grid grid-cols-4 items-center gap-4">
-            <Textarea
-              id="description"
+            <FormField
+              control={form.control}
               name="description"
-              placeholder="Description..."
-              className="col-span-4"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Description</FormLabel>
+                  <FormControl>
+                    <Textarea
+                      disabled={loading}
+                      placeholder="Description..."
+                      {...field}
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
             />
-          </div>
-        </form>
+            <FormField
+              control={form.control}
+              name="file"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>File</FormLabel>
+                  <FormControl>
+                    <FileUpload
+                      onChange={field.onChange}
+                      value={field.value}
+                      onRemove={field.onChange}
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+          </form>
+        </Form>
         <DialogFooter>
           <DialogTrigger asChild>
             <Button type="submit" size="sm" form="category-form">

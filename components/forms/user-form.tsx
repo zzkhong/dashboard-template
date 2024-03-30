@@ -51,14 +51,14 @@ const formSchema = z.object({
   category: z.string().min(1, { message: "Please select a category" }),
 });
 
-type ProductFormValues = z.infer<typeof formSchema>;
+type UserFormValues = z.infer<typeof formSchema>;
 
-interface ProductFormProps {
+interface UserFormProps {
   initialData: any | null;
   categories: any;
 }
 
-export const UserForm: React.FC<ProductFormProps> = ({
+export const UserForm: React.FC<UserFormProps> = ({
   initialData,
   categories,
 }) => {
@@ -82,7 +82,7 @@ export const UserForm: React.FC<ProductFormProps> = ({
         category: "",
       };
 
-  const form = useForm<ProductFormValues>({
+  const form = useForm<UserFormValues>({
     resolver: zodResolver(formSchema),
     defaultValues,
   });
