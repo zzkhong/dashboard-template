@@ -1,6 +1,8 @@
 "use client";
 
 import dynamic from "next/dynamic";
+import * as React from "react";
+import { cn } from "@/lib/utils";
 
 const Image = dynamic(
   () => import("@samvera/clover-iiif/image").then((CloverImage) => CloverImage),
@@ -17,7 +19,11 @@ const openSeadragonConfig = {
   navigatorPosition: "TOP_LEFT",
 };
 
-export const ImageViewer = () => {
+interface ImageViewerProps {
+  className?: string | undefined;
+}
+
+export const ImageViewer: React.FC<ImageViewerProps> = ({ className }) => {
   const handleOpenSeadragonCallback = (viewer: any) => {
     // eslint-disable-next-line no-console
     console.log(viewer?.id);
@@ -25,10 +31,12 @@ export const ImageViewer = () => {
   };
 
   return (
-    <div className="bg-secondary w-full h-[calc(72vh)]">
+    <div
+      className={cn("bg-secondary h-[calc(72vh)] w-full max-w-7xl", className)}
+    >
       {/* eslint-disable-next-line jsx-a11y/alt-text */}
       <Image
-        src="https://ids.lib.harvard.edu/ids/iiif/18772291/full/full/0/default.jpg"
+        src="https://iiif.dc.library.northwestern.edu/iiif/2/6ca016c5-de7f-4373-ae8f-7047fecf6ace/full/1000,/0/default.jpg"
         openSeadragonCallback={handleOpenSeadragonCallback}
         openSeadragonConfig={openSeadragonConfig}
       />

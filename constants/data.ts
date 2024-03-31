@@ -111,6 +111,86 @@ export const users: User[] = [
 //   profile_picture?: string | null; // Profile picture can be a string (URL) or null (if no picture)
 // };
 
+export type Comment = {
+  id: number;
+  author: string;
+  content: string;
+  created_at: Date;
+};
+
+export const comments: Comment[] = [
+  {
+    id: 1,
+    author: "Alice",
+    content:
+      "Great work! I really appreciate the effort everyone has put into this project.",
+    created_at: new Date("2024-03-30T08:00:00"),
+  },
+  {
+    id: 2,
+    author: "Bob",
+    content:
+      "I agree with Alice! The progress we've made so far is impressive, and I'm excited to see it continue.",
+    created_at: new Date("2024-03-29T14:30:00"),
+  },
+  {
+    id: 3,
+    author: "Charlie",
+    content:
+      "Keep it up! The dedication shown by the team is inspiring, and I'm confident we'll achieve great things together.",
+    created_at: new Date("2024-03-28T10:15:00"),
+  },
+  {
+    id: 4,
+    author: "David",
+    content:
+      "Interesting discussion. I appreciate the different perspectives shared during the meeting, and I think it's beneficial for our project.",
+    created_at: new Date("2024-03-27T16:45:00"),
+  },
+  {
+    id: 5,
+    author: "Emma",
+    content:
+      "I have a question. Regarding the latest update, could you clarify the approach we're taking for the next phase of the project?",
+    created_at: new Date("2024-03-26T11:20:00"),
+  },
+  {
+    id: 6,
+    author: "Frank",
+    content:
+      "Thanks for sharing! The insights provided in the presentation were enlightening, and I look forward to exploring them further.",
+    created_at: new Date("2024-03-25T09:30:00"),
+  },
+  {
+    id: 7,
+    author: "Grace",
+    content:
+      "This is helpful. The documentation provided has been instrumental in understanding the project requirements, and I appreciate the clarity.",
+    created_at: new Date("2024-03-24T15:00:00"),
+  },
+  {
+    id: 8,
+    author: "Hannah",
+    content:
+      "I have some ideas. After reviewing the data, I believe there are opportunities for optimization that could enhance our project outcomes.",
+    created_at: new Date("2024-03-23T12:45:00"),
+  },
+  {
+    id: 9,
+    author: "Ian",
+    content:
+      "Interesting point of view. I hadn't considered that perspective before, and it adds depth to our discussions.",
+    created_at: new Date("2024-03-22T08:45:00"),
+  },
+  {
+    id: 10,
+    author: "Jessica",
+    content:
+      "Looking forward to the next meeting! It's always productive to collaborate with the team and move closer to our goals.",
+    created_at: new Date("2024-03-21T16:00:00"),
+  },
+];
+
 export const navItems: NavItem[] = [
   {
     title: "Home",
