@@ -36,7 +36,7 @@ export const ImageViewer: React.FC<ImageViewerProps> = ({ className }) => {
     >
       {/* eslint-disable-next-line jsx-a11y/alt-text */}
       <Image
-        src="https://iiif.dc.library.northwestern.edu/iiif/2/6ca016c5-de7f-4373-ae8f-7047fecf6ace/full/1000,/0/default.jpg"
+        src="https://ids.lib.harvard.edu/ids/iiif/18772291/full/full/0/default.jpg"
         openSeadragonCallback={handleOpenSeadragonCallback}
         openSeadragonConfig={openSeadragonConfig}
       />
