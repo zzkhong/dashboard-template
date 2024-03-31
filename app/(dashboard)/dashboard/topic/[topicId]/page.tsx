@@ -1,18 +1,12 @@
 import BreadCrumb from "@/components/breadcrumb";
 import { Heading } from "@/components/ui/heading";
-import dynamic from "next/dynamic";
-
-const Image = dynamic(
-  () => import("@samvera/clover-iiif/image").then((Clover) => Clover),
-  {
-    ssr: false,
-  },
-);
+import { ImageViewer } from "@/components/ui/image-viewer";
 
 const breadcrumbItems = [
   { title: "Topic", link: "/dashboard/topic" },
   { title: "View", link: "/dashboard/topic" },
 ];
+
 export default function page() {
   return (
     <>
@@ -23,11 +17,7 @@ export default function page() {
         </div>
       </div>
 
-      {/* eslint-disable-next-line jsx-a11y/alt-text */}
-      <Image
-        label="File Title"
-        src="https://ids.lib.harvard.edu/ids/iiif/18772291/full/full/0/default.jpg"
-      />
+      <ImageViewer />
     </>
   );
 }

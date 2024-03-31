@@ -115,7 +115,7 @@ export function FileCard({ file, isOverlay }: FileCardProps) {
         </DropdownMenu>
       </CardHeader>
       <CardContent className="px-3 pt-4 text-left whitespace-pre-wrap">
-        <Badge variant={"default"} className="ml-auto font-semibold mr-2">
+        <Badge variant={"outline"} className="ml-auto font-semibold mr-2">
           Public
         </Badge>
         <Badge variant={"outline"} className="ml-auto font-semibold">
