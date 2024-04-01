@@ -2,6 +2,7 @@ import BreadCrumb from "@/components/breadcrumb";
 import { FileBoard } from "@/components/file/file-board";
 import NewFileDialog from "@/components/file/new-file-dialog";
 import { Heading } from "@/components/ui/heading";
+import { ScrollArea } from "@/components/ui/scroll-area";
 
 const breadcrumbItems = [{ title: "File", link: "/dashboard/file" }];
 export default function page() {
@@ -13,7 +14,10 @@ export default function page() {
           <Heading title={`File`} description="Manage files by category" />
           <NewFileDialog />
         </div>
-        <FileBoard />
+
+        <ScrollArea className="h-full">
+          <FileBoard />
+        </ScrollArea>
       </div>
     </>
   );

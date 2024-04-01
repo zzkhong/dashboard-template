@@ -28,7 +28,7 @@ export default function page() {
         </div>
       </div>
 
-      <div className="flex-1 space-y-4 mx-4">
+      <div className="flex-1 space-y-4 mx-4 pb-24">
         <div className="grid gap-4 grid-cols-1 xl:grid-cols-2">
           <div className="col-span-1">
             <ImageViewer />

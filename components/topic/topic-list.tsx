@@ -14,7 +14,7 @@ interface TopicListProps {
 export function TopicList({ items = topics }: TopicListProps) {
   return (
     <ScrollArea className="h-[calc(80vh)]">
-      <div className="flex flex-col gap-2 p-4 pt-0">
+      <div className="flex flex-col gap-2 p-4 pt-0 pb-24">
         {items?.map((item) => (
           <Link
             href={`/dashboard/topic/${item.id}`}

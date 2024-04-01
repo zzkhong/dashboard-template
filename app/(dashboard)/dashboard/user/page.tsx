@@ -3,6 +3,7 @@ import { columns } from "@/components/tables/user-tables/columns";
 import { UserTable } from "@/components/tables/user-tables/user-table";
 import { buttonVariants } from "@/components/ui/button";
 import { Heading } from "@/components/ui/heading";
+import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
 import { Separator } from "@/components/ui/separator";
 import { User } from "@/constants/data";
 import { cn } from "@/lib/utils";
@@ -32,8 +33,8 @@ export default async function page({ searchParams }: paramsProps) {
   const pageCount = Math.ceil(totalUsers / pageLimit);
   const user: User[] = userRes.users;
   return (
-    <>
-      <div className="flex-1 space-y-4  p-4 md:p-8 pt-6">
+    <ScrollArea className="h-full">
+      <div className="flex-1 space-y-4 p-4 md:p-8 pt-6 pb-24">
         <BreadCrumb items={breadcrumbItems} />
 
         <div className="flex items-start justify-between">
@@ -57,6 +58,8 @@ export default async function page({ searchParams }: paramsProps) {
           pageCount={pageCount}
         />
       </div>
-    </>
+
+      <ScrollBar orientation="horizontal" />
+    </ScrollArea>
   );
 }
