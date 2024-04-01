@@ -79,7 +79,7 @@ export default function page() {
                 </CardContent>
               </Card>
             </div>
-            <div className="grid gap-4 grid-cols-1 md:grid-cols-2 lg:grid-cols-7">
+            <div className="grid gap-4 grid-cols-1 lg:grid-cols-4">
               <Card className="col-span-3">
                 <CardHeader>
                   <CardTitle>Activity Log</CardTitle>

@@ -20,7 +20,7 @@ const breadcrumbItems = [
 
 export default function page() {
   return (
-    <>
+    <ScrollArea className="h-full">
       <div className="flex-1 space-y-4 p-4 md:p-8 pt-6">
         <BreadCrumb items={breadcrumbItems} />
         <div className="flex items-start justify-between">
@@ -29,7 +29,7 @@ export default function page() {
       </div>
 
       <div className="flex-1 space-y-4 mx-4">
-        <div className="grid gap-4 grid-cols-2">
+        <div className="grid gap-4 grid-cols-1 xl:grid-cols-2">
           <div className="col-span-1">
             <ImageViewer />
           </div>
@@ -67,6 +67,6 @@ export default function page() {
           </Card>
         </div>
       </div>
-    </>
+    </ScrollArea>
   );
 }
